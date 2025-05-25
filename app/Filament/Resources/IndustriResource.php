@@ -107,13 +107,41 @@ class IndustriResource extends Resource
                 \Filament\Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                    ->action(function ($record) { // ini hapus per item
+                        static::deleteIndustri($record);
+                    })
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->action(function (\Illuminate\Support\Collection $records){
+                            //ini cara hapusnya dari select box yah
+                            foreach ($records as $record){
+                                static::deleteIndustri($record);
+                            }
+                        })
+                ]);
+    }
+
+    protected static function deleteIndustri($record){
+        if($record->pkls()->exists()){
+            \Filament\Notifications\Notification::make()
+                ->title('Gagal menghapus industri')
+                ->body('Industri ini masih digunakan untuk PKL')
+                ->danger()
+                ->send();
+            return false;
+        }
+
+        $record->delete();
+        \Filament\Notifications\Notification::make()
+            ->title('Berhasil menghapus industri')
+            ->body('Industri berhasil dihapus')
+            ->success()
+            ->send();
+
+        return true;
     }
 
     public static function getRelations(): array

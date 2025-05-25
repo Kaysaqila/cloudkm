@@ -16,12 +16,19 @@ Route::middleware([
     'verified',
     //tambahkan nama alias checkuserroles, dan parameternya (role)
     'CheckUserRoles:super_admin',
-    'CheckUserRoles:admin_guru'
+    'CheckUserRoles:admin_guru',
+    'CheckUserRoles:siswa'
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
+//pkl-ish
 Route::get('dataPkl',App\Livewire\Pkl\Index::class)->name('pkl');
-Route::get('createDataPkl',App\Livewire\Pkl\Create::class)->name('pklCreate');
+Route::get('/dataPkl/createDataPkl',App\Livewire\Pkl\Create::class)->name('pklCreate');
+Route::get('/dataPkl/{id}',App\Livewire\Pkl\View::class)->name('pklView');
+Route::get('/dataPkl/{id}/editDataPkl',App\Livewire\Pkl\Edit::class)->name('pklEdit');
+
+//guru-ish
+Route::get('/dataGuru',App\Livewire\Guru\Index::class)->name('guru');

@@ -8,10 +8,32 @@ use App\Models\Siswa;
 use App\Models\Guru;
 use App\Models\Industri;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth; //ini jgn lupa!!!!!
 
 class Create extends Component
 {
     public $siswa_id, $guru_id, $industri_id, $mulai, $selesai; //ini adalah properti yang dipanggil di blade
+
+    //menyimpan nama siswa yg sedang login
+    public $nama_siswa;
+
+    public function mount(){
+        //mengambil email user yg login
+        //mengambil data dari tabel user
+        //laravel secara default pakai model app\models\user yg terkait langsung dengan tabel users
+        $userEmail = Auth::user()->email; //jgn lupa tambahin import class auth 
+
+        //cari data siswa berdasarkan email
+        //Siswa::where('email', $userEmail) = pada model siswa, database siswas, cari email berdasarkan $userEmail yg sdg login
+        //nilai akan disimpan di $siswa
+        $siswa = Siswa::where('email', $userEmail)->first();
+
+        if ($siswa){
+            //simpan id siswa ($siswa->id) ke $siswa_id (dipakai untuk input form tersembunyi)
+            $this->siswa_id = $siswa->id;
+            $this->nama_siswa = $siswa->nama;
+        }
+    }
 
     public function create(){
         $this->validate([ //validasi semua input
@@ -65,13 +87,14 @@ class Create extends Component
     public function render()
     {
         $pkls = Pkl::all();
-        $siswas = Siswa::all();
+        //$siswas = Siswa::all(); | ini kemarin untuk dropdown semua siswa
+        //sedangkan kita ingin input user yg sedang login saja
         $industris = Industri::all();
         $gurus = Guru::all();
 
         return view('livewire.pkl.create', [
         'pkls' => $pkls,
-        'siswas' => $siswas,
+        //'siswas' => $siswas,
         'industris' => $industris,
         'gurus' => $gurus,
         ]);

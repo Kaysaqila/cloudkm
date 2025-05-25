@@ -1,5 +1,4 @@
 <div class="px-8">
-
      <!-- Header: Tombol Tambah + Form Search -->
     <div class="flex justify-between items-center mb-6 mt-6">
         <!-- Tombol Tambah Data -->
@@ -53,6 +52,7 @@
                     <th class="px-6 py-3">Mulai</th>
                     <th class="px-6 py-3">Selesai</th>
                     <th class="px-6 py-3">Durasi</th>
+                    <th class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,6 +87,29 @@
                         <td class="px-6 py-4">
                             {{ \Carbon\Carbon::parse($pkl->mulai)->diffInDays(\Carbon\Carbon::parse($pkl->selesai)) }}
                             hari
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex gap-x-2">
+                                <a href="{{ route('pklView', ['id' => $pkl->id ]) }}" type="button"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    View
+                                </a>
+                                <!-- menyimpan data user yang sedang login ke $user -->
+                                @php 
+                                    $user = Auth::user();
+                                @endphp
+                                <!-- $user = variabel di atas -->
+                                <!-- && = jika 1 salah, maka salah, maka gabisa dijalankan. 22nya harus terpenuhi -->
+                                <!-- $user->email = ambil email dari user yg login -->
+                                <!-- $pkl->siswa->email = mengakses email dari relasi siswa yg dimiliki oleh objek $pkl -->
+                                @if ($user && $user->email === $pkl->siswa->email)
+                                <!-- jika user yang login, emailnya sama dengan email siswa pkl, yg bisa ngedit -->
+                                <a href="{{ route('pklEdit', ['id' => $pkl->id ]) }}" type="button"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Edit
+                                </a>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @empty

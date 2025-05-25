@@ -35,7 +35,7 @@ class CheckUserRoles
         //!$user = jika user gak ada role
         //hasAnyRole = jika punya salah satu dari role yg disebutkan. hasilnya akan true
         //abort = jika user gapunya role (!$user) hasAnyRole maka abort
-        if (!Auth::check() || !$user->hasAnyRole(['super_admin', 'admin_guru'])) {
+        if (!Auth::check() || !$user->hasAnyRole(['super_admin', 'admin_guru', 'siswa'])) {
             //abort(403, 'Kamu belum punya akses');
             return redirect()->route('tunggu');
         }
