@@ -66,7 +66,7 @@ class SiswaResource extends Resource
                             
                         Forms\Components\TextInput::make('kontak') 
                             ->label('Kontak')                 
-                            ->placeholder('Kontak Industri')  
+                            ->placeholder('Kontak Siswa')  
                             ->required(),                   
                             
                         Forms\Components\TextInput::make('email')
@@ -81,7 +81,7 @@ class SiswaResource extends Resource
                             
                         Forms\Components\TextInput::make('alamat') 
                             ->label('Alamat')                 
-                            ->placeholder('Alamat Industri')  
+                            ->placeholder('Alamat Siswa')  
                             ->columnspan(2)
                             ->required(),
                     ]),

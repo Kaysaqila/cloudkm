@@ -35,10 +35,10 @@ class PklResource extends Resource
                                                         //model utama(pkl) punya relasi ke model siswa. relasinya App\Models\Pkl
                         ->native(false) //non aktifkan dropdown bawaan       
                         ->columnSpan(2)               
-                        ->unique(table: 'pkls', column: 'siswa_id', ignoreRecord: true)         
-                        ->validationMessages([ //pesan error kalau user masukin nama yg sudah digunakan
-                            'unique' => 'Siswa ini sudah memiliki data PKL',
-                        ])               
+                        // ->unique(table: 'pkls', column: 'siswa_id', ignoreRecord: true)         
+                        // ->validationMessages([ //pesan error kalau user masukin nama yg sudah digunakan
+                        //     'unique' => 'Siswa ini sudah memiliki data PKL',
+                        // ])               
                         ->required(),      
 
                     //industri_id

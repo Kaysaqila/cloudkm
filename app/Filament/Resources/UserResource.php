@@ -28,13 +28,18 @@ class UserResource extends Resource
                         Forms\Components\TextInput::make('name') 
                             ->label('Nama')         
                             ->placeholder('Nama Pengguna')
-                            ->columnSpan(2)
                             ->required(), 
 
                         Forms\Components\TextInput::make('email') 
                             ->label('Email')         
                             ->placeholder('Email Pengguna')
                             ->required(), 
+
+                        Forms\Components\DateTimePicker::make('created_at') 
+                            ->label('Email Dibuat')         
+                            ->placeholder('Email Pengguna')
+                            ->default(now())
+                            ->disabled(), 
 
                         Forms\Components\TextInput::make('password') 
                             ->label('Password')         
@@ -43,7 +48,7 @@ class UserResource extends Resource
                             ->required(), 
 
                         Forms\Components\Select::make('roles') //select opsi
-                            ->relationship('roles', 'nama') //relasi dengan roles dari spatie         
+                            ->relationship('roles', 'name') //relasi dengan roles dari spatie         
                             ->multiple() //pemilihan role lebih dari 1
                             ->columnSpan(2)
                             ->required(), 
@@ -55,14 +60,33 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                ->label('ID')
+                ->getStateUsing(fn ($record) => user::orderBy('id')->pluck('id') //ambil semua id dari tabel guru
+                ->search($record->id) + 1), 
+
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+
+                Tables\Columns\TextColumn::make('email')
+                ->searchable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->searchable(),
+
+                Tables\Columns\TextColumn::make('roles.name')
+                ->label('Roles')
+                ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                \Filament\Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

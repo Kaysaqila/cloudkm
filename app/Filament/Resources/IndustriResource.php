@@ -48,7 +48,7 @@ class IndustriResource extends Resource
                             
                         Forms\Components\TextInput::make('email')
                             ->label('Email')
-                            ->placeholder('Email Guru')
+                            ->placeholder('Email Industri')
                             ->email()               //mengatur input type="email" dan validasi email otomatis
                             ->unique(ignoreRecord: true)
                             ->validationMessages([

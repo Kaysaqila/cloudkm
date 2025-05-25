@@ -15,3 +15,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('dataPkl',App\Livewire\Pkl\Index::class)->name('pkl');
+Route::get('createDataPkl',App\Livewire\Pkl\Create::class)->name('pklCreate');
