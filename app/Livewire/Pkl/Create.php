@@ -60,6 +60,7 @@ class Create extends Component
                 return redirect('/dataPkl');
             }
 
+            //menyimpan data ke tabel pkl, butuh model PKl
             Pkl::create([
                 'siswa_id' => $this->siswa_id,
                 'guru_id' => $this->guru_id,

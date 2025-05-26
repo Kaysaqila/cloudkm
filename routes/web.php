@@ -32,3 +32,11 @@ Route::get('/dataPkl/{id}/editDataPkl',App\Livewire\Pkl\Edit::class)->name('pklE
 
 //guru-ish
 Route::get('/dataGuru',App\Livewire\Guru\Index::class)->name('guru');
+
+//siswa
+Route::get('/dataSiswa',App\Livewire\Siswa\Index::class)->name('siswa');
+
+//industri
+Route::get('dataIndustri',App\Livewire\Industri\Index::class)->name('industri');
+Route::get('/dataIndustri/createDataIndustri',App\Livewire\Industri\Create::class)->name('industriCreate');
+Route::get('/dataIndustri/{id}/editDataIndustri',App\Livewire\Industri\Edit::class)->name('industriEdit');
