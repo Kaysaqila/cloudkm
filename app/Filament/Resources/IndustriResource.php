@@ -32,7 +32,7 @@ class IndustriResource extends Resource
                             
                         Forms\Components\TextInput::make('bidang_usaha') 
                             ->label('Bidang Usaha')                 
-                            ->placeholder('Bidang Usaha')  
+                            ->placeholder('Bidang Usaha')
                             ->required(),                                  
                             
                         Forms\Components\TextInput::make('alamat') 
@@ -83,6 +83,7 @@ class IndustriResource extends Resource
                 Tables\Columns\TextColumn::make('bidang_usaha')
                 ->label('Bidang Usaha')
                 ->searchable()
+                ->limit(30)
                 ->sortable(),
 
                 Tables\Columns\TextColumn::make('website')

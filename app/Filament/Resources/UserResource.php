@@ -45,7 +45,9 @@ class UserResource extends Resource
                             ->label('Password')         
                             ->placeholder('Password')
                             ->password()
-                            ->required(), 
+                            ->dehydrateStateUsing(fn($state) => filled($state) ? bcrypt($state) : null)
+                            ->dehydrated(fn($state) => filled($state))
+                            ->required(fn($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord), 
 
                         Forms\Components\Select::make('roles') //select opsi
                             ->relationship('roles', 'name') //relasi dengan roles dari spatie         

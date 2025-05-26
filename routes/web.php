@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 
 Route::get('menunggu', function(){
-    return view('tunggu'); //view yg isinya pesan tolak
+    return view('livewire.tunggu'); //view yg isinya pesan tolak
 })->name('tunggu');
 
 Route::middleware([

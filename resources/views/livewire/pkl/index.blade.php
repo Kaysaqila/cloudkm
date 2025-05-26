@@ -1,9 +1,9 @@
-<div class="px-8">
+<div class="px-8 bg-gray-900 min-h-screen text-gray-200">
      <!-- Header: Tombol Tambah + Form Search -->
-    <div class="flex justify-between items-center mb-6 mt-6">
+    <div class="flex justify-between items-center mb-6 pt-6">
         <!-- Tombol Tambah Data -->
         <a href="{{ route('pklCreate') }}" type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-800 font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-200">
             Tambahkan Data PKL
         </a>
 
@@ -12,7 +12,7 @@
             <label for="default-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    <svg class="w-4 h-4 text-gray-400" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -20,28 +20,28 @@
                 </div>
                 <input type="search" id="default-search" name="search"
                     wire:model.live="search"
-                    class="block w-64 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="block w-64 p-2 ps-10 text-sm border rounded-lg bg-gray-800 border-gray-700 placeholder-gray-400 focus:ring-purple-600 focus:border-purple-600"
                     placeholder="Cari siswa PKL" />
             </div>
         </form>
     </div>
 
    @if (session()->has('success'))
-        <div class="bg-green-100 text-green-700 px-4 py-2 rounded-md mb-4">
+        <div class="bg-green-900 text-green-200 px-4 py-2 rounded-md mb-4 border border-green-700">
             {{ session('success') }}
         </div>
     @endif
 
     @if (session()->has('error'))
-        <div class="bg-red-100 text-red-700 px-4 py-2 rounded-md mb-4">
+        <div class="bg-red-900 text-red-200 px-4 py-2 rounded-md mb-4 border border-red-700">
         {{ session('error') }}
         </div>
     @endif
 
     <!-- Table PKL -->
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-700">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-400">
+            <thead class="text-xs uppercase bg-gray-800 text-gray-300">
                 <tr>
                     <th class="px-6 py-3">No</th>
                     <th class="px-6 py-3">NIS</th>
@@ -57,10 +57,8 @@
             </thead>
             <tbody>
                 @forelse ($pkls as $key => $pkl)
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr class="border-b bg-gray-900 border-gray-700 hover:bg-gray-800 transition-colors duration-150">
+                        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">
                             {{ $key + 1 }}
                         </th>
                         <td class="px-6 py-4">
@@ -89,23 +87,17 @@
                             hari
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex gap-x-2">
+                            <div class="flex gap-x-2 justify-center">
                                 <a href="{{ route('pklView', ['id' => $pkl->id ]) }}" type="button"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    class="text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-800 font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-200">
                                     View
                                 </a>
-                                <!-- menyimpan data user yang sedang login ke $user -->
                                 @php 
                                     $user = Auth::user();
                                 @endphp
-                                <!-- $user = variabel di atas -->
-                                <!-- && = jika 1 salah, maka salah, maka gabisa dijalankan. 22nya harus terpenuhi -->
-                                <!-- $user->email = ambil email dari user yg login -->
-                                <!-- $pkl->siswa->email = mengakses email dari relasi siswa yg dimiliki oleh objek $pkl -->
                                 @if ($user && $user->email === $pkl->siswa->email)
-                                <!-- jika user yang login, emailnya sama dengan email siswa pkl, yg bisa ngedit -->
                                 <a href="{{ route('pklEdit', ['id' => $pkl->id ]) }}" type="button"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    class="text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-800 font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-200">
                                     Edit
                                 </a>
                                 @endif
@@ -114,7 +106,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="9" class="text-center py-4 text-gray-500">Tidak ada siswa terdaftar</td>
+                        <td colspan="9" class="text-center py-4 text-gray-400">Tidak ada siswa terdaftar</td>
                     </tr>
                 @endforelse
             </tbody>
