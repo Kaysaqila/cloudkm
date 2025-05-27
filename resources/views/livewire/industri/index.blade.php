@@ -1,15 +1,15 @@
-<div class="px-8">
+<div class="px-8 bg-blue-50 min-h-screen text-gray-800">
     <!-- Header Aksi: Tambah & Cari -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mt-6 mb-6">
+    <div class="flex justify-between items-center mb-6 pt-6">
         <!-- Tombol Tambah -->
-        <a href="{{ route('industriCreate') }}"
-           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <a href="{{ route('industriCreate') }}" type="button"
+           class="text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
             Tambahkan Data Industri
         </a>
 
         <!-- Form Search -->
         <form class="flex items-center">
-            <label for="search" class="sr-only">Cari</label>
+            <label for="search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20"
@@ -19,8 +19,7 @@
                     </svg>
                 </div>
                 <input type="search" id="search" name="search" wire:model.live="search"
-                       class="block w-64 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500
-                              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       class="block w-64 p-2 ps-10 text-sm border rounded-lg bg-blue-50 border-blue-300 placeholder-blue-500 focus:ring-blue-500 focus:border-blue-500"
                        placeholder="Cari Data Industri"/>
             </div>
         </form>
@@ -33,23 +32,38 @@
         </div>
     @endif
 
+    @if (session()->has('error'))
+        <div class="bg-red-100 text-red-800 px-4 py-2 rounded-md mb-4 border border-red-300">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if($search && $industris->isEmpty())
+        <div class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-md mb-4 border border-yellow-300">
+            Data tidak ditemukan untuk pencarian "{{ $search }}"
+        </div>
+    @endif
+
     <!-- Tabel Data Industri -->
+    <div class="px-8">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left text-gray-700">
+            <thead class="text-xs uppercase bg-gradient-to-r from-blue-600 to-blue-700 text-white">
                 <tr>
-                    <th class="px-6 py-3">Nama</th>
-                    <th class="px-6 py-3">Bidang Usaha</th>
-                    <th class="px-6 py-3">Alamat</th>
-                    <th class="px-6 py-3">Kontak</th>
-                    <th class="px-6 py-3">Email</th>
-                    <th class="px-6 py-3">Website</th>
-                    <th class="px-6 py-3">Aksi</th>
+                    <th class="px-6 py-3 font-semibold">No</th>
+                    <th class="px-6 py-3 font-semibold">Nama</th>
+                    <th class="px-6 py-3 font-semibold">Bidang Usaha</th>
+                    <th class="px-6 py-3 font-semibold">Alamat</th>
+                    <th class="px-6 py-3 font-semibold">Kontak</th>
+                    <th class="px-6 py-3 font-semibold">Email</th>
+                    <th class="px-6 py-3 font-semibold">Website</th>
+                    <th class="px-6 py-3 font-semibold">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($industris as $industri)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                @forelse ($industris as $key => $industri)
+                    <tr class="bg-white border-b hover:bg-blue-50 transition-colors duration-150">
+                        <td class="px-6 py-4">{{ $key + 1 }}</td>
                         <td class="px-6 py-4">{{ $industri->nama }}</td>
                         <td class="px-6 py-4">{{ $industri->bidang_usaha }}</td>
                         <td class="px-6 py-4">{{ $industri->alamat }}</td>
@@ -58,7 +72,7 @@
                         <td class="px-6 py-4">{{ $industri->website }}</td>
                         <td class="px-6 py-4">
                             <a href="{{ route('industriEdit', ['id' => $industri->id]) }}"
-                               class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:focus:ring-blue-800">
+                               class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
                                 Edit
                             </a>
                         </td>
@@ -74,3 +88,4 @@
         </table>
     </div>
 </div>
+

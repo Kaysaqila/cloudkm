@@ -13,6 +13,7 @@
     font-family: 'Segoe UI', Arial, sans-serif;
     z-index: 9999;
 ">
+    <!-- Waiting content -->
     <div style="
         font-size: 2.5rem;
         font-weight: bold;
@@ -40,6 +41,31 @@
         animation: spin 1s linear infinite;
     "></div>
     
+    <!-- Action Buttons -->
+    <div style="
+        margin-top: 3rem;
+        display: flex;
+        gap: 1rem;
+    ">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" style="
+            padding: 0.75rem 1.5rem;
+            background-color: #3700b3;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        ">
+                Kembali
+            </button>
+        </form>
+    </div>
+    
     <div style="
         margin-top: 2rem;
         font-size: 0.9rem;
@@ -52,5 +78,13 @@
 <style>
     @keyframes spin {
         to { transform: rotate(360deg); }
+    }
+    
+    button:hover {
+        background-color: #b00020 !important;
+    }
+    
+    a:hover {
+        background-color: #6200ee !important;
     }
 </style>

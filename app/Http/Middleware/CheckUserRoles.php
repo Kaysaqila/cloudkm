@@ -35,11 +35,18 @@ class CheckUserRoles
         //!$user = jika user gak ada role
         //hasAnyRole = jika punya salah satu dari role yg disebutkan. hasilnya akan true
         //abort = jika user gapunya role (!$user) hasAnyRole maka abort
+        // if (!Auth::check() || !$user->hasAnyRole(['super_admin', 'admin_guru', 'siswa'])) {
+        //     //abort(403, 'Kamu belum punya akses');
+        //     // Logout dengan guard 'web' secara eksplisit
+        //     Auth::guard('web')->logout();
+        //     $request->session()->invalidate();
+        //     $request->session()->regenerateToken();
+
+        //     return redirect()->route('tunggu');
+        // }
         if (!Auth::check() || !$user->hasAnyRole(['super_admin', 'admin_guru', 'siswa'])) {
-            //abort(403, 'Kamu belum punya akses');
-            return redirect()->route('tunggu');
+            return response()->view('livewire.tunggu');
         }
-        
         return $next($request); //kalau udh bisa, dilanjut req yg lain
     }
 }

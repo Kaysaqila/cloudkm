@@ -14,6 +14,7 @@ class Edit extends Component
     public $pklId;
     public $siswa_id, $guru_id, $industri_id;
     public $mulai, $selesai;
+    public $nama_siswa;
 
     public function mount($id){
         $this->pklId = $id;
@@ -27,8 +28,17 @@ class Edit extends Component
             abort(403, 'Anda tidak memiliki izin untuk mengedit data ini'); 
         }
 
+        // Ambil data siswa berdasarkan user yang login
+        $userEmail = Auth::user()->email;
+        $siswa = Siswa::where('email', $userEmail)->first();
+
+        if ($siswa) {
+            $this->siswa_id = $siswa->id;
+            $this->nama_siswa = $siswa->nama;
+        }
+
         //isi form awal sebelum diedit
-        $this->siswa_id = $pkl->siswa_id;
+        // $this->siswa_id = $pkl->siswa_id;
         $this->guru_id = $pkl->guru_id;
         $this->industri_id = $pkl->industri_id;
         $this->mulai = $pkl->mulai;

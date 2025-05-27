@@ -7,8 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('menunggu', function(){
-    return view('livewire.tunggu'); //view yg isinya pesan tolak
+Route::get('menunggu', function () {
+    if (!Auth::check()) {
+        return redirect('/'); // landing page
+    }
+    return view('livewire.tunggu');
 })->name('tunggu');
 
 Route::middleware([
@@ -20,9 +23,7 @@ Route::middleware([
     'CheckUserRoles:admin_guru',
     'CheckUserRoles:siswa'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 //pkl-ish
@@ -42,7 +43,7 @@ Route::get('dataIndustri',App\Livewire\Industri\Index::class)->name('industri');
 Route::get('/dataIndustri/createDataIndustri',App\Livewire\Industri\Create::class)->name('industriCreate');
 Route::get('/dataIndustri/{id}/editDataIndustri',App\Livewire\Industri\Edit::class)->name('industriEdit');
 
-//dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard');
+// //dashboard
+// Route::get('/dashboard', [DashboardController::class, 'index'])
+//     ->middleware(['auth'])
+//     ->name('dashboard');

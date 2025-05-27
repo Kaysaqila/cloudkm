@@ -20,7 +20,7 @@
     </head>
     <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
         <!-- Navigation -->
-        <nav class="bg-white shadow-sm">
+        <nav class="sticky top-0 z-50 bg-white shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex items-center">
@@ -133,7 +133,7 @@
                         <p class="text-gray-400 mt-2">Sistem Monitoring PKL Siswa</p>
                     </div>
                     <div class="text-gray-400 text-sm">
-                        &copy; {{ date('Y') }} SMK Negeri 2 Depok Sleman. All rights reserved.
+                        &copy; {{ date('Y') }} Kaysa UKK SIJA. All rights reserved.
                     </div>
                 </div>
             </div>
