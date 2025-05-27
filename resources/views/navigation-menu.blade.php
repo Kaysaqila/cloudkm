@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-gray-800 border-b border-gray-700">
+<nav x-data="{ open: false }" class="bg-[#DEE4E9] border-b border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,10 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                         <div class="flex items-center">
+                            <a href="/" class="text-xl font-bold text-indigo-600">PKL<span class="text-gray-800">SMK</span></a>
+                            <img src="{{ asset('image/logo.png') }}" alt="Logo" width="40" class="ml-2">
+                    </div>
                     </a>
                 </div>
 
@@ -45,7 +48,7 @@
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300 bg-gray-800 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition ease-in-out duration-150">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300 bg-[#DEE4E9] hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition ease-in-out duration-150">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -56,7 +59,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <div class="w-60 bg-gray-800 border border-gray-700 rounded-md shadow-lg">
+                                <div class="w-60 bg-[#DEE4E9] border border-gray-700 rounded-md shadow-lg">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                         {{ __('Manage Team') }}
@@ -101,8 +104,9 @@
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300 bg-gray-800 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition ease-in-out duration-150">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300 bg-[#DEE4E9] hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition ease-in-out duration-150">
                                         {{ Auth::user()->name }}
+                                        <img class="h-8 w-8 rounded-full ml-2" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=indigo&color=fff" alt="Profile">
 
                                         <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -113,7 +117,7 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <div class="bg-gray-800 border border-gray-700 rounded-md shadow-lg py-1">
+                            <div class="bg-[#DEE4E9] border border-gray-700 rounded-md shadow-lg py-1">
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Manage Account') }}
@@ -160,7 +164,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-gray-800">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#DEE4E9]">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="text-gray-300 hover:text-white hover:bg-gray-700">
                 {{ __('Dashboard') }}

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,3 +41,8 @@ Route::get('/dataSiswa',App\Livewire\Siswa\Index::class)->name('siswa');
 Route::get('dataIndustri',App\Livewire\Industri\Index::class)->name('industri');
 Route::get('/dataIndustri/createDataIndustri',App\Livewire\Industri\Create::class)->name('industriCreate');
 Route::get('/dataIndustri/{id}/editDataIndustri',App\Livewire\Industri\Edit::class)->name('industriEdit');
+
+//dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
